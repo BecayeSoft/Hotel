@@ -1,11 +1,12 @@
 # Hotel
 Site vitrine pour hôtel avec possibilité de réservation de chambres.
+**Note**: Il faut toujours mettre à jour le dépot local avant de comitter vos changements.
 
 ## Cloner le projet
 
 <code>git clone https://github.com/BecayeSoft/Hotel.git</code>
 
-## Mettre à jour le repo local
+## Mettre à jour le dépôt local
 
 <code>git pull</code>
 
@@ -23,6 +24,6 @@ Site vitrine pour hôtel avec possibilité de réservation de chambres.
 
   <code>git commit -m "Description des modifications apportées"</code>
 
-### Uploader les fichiers sur le repo github
+### Uploader les fichiers sur le dépôt distant github
   
   <code>git push -u origin main</code>
