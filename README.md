@@ -5,6 +5,10 @@ Cloner le projet
 
 <code>git clone https://github.com/BecayeSoft/Hotel.git</code>
 
+Mettre à jour le repo local
+
+<code>git pull</code>
+
 Committer les changements
 
 Vérifier les fichiers modifiés
