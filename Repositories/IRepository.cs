@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.Repositories
 {
-	interface IRepository
+	public interface IRepository
 	{
 	}
 }
