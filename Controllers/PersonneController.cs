@@ -1,4 +1,5 @@
-﻿using Hotel.Repositories;
+﻿using Hotel.Models;
+using Hotel.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,8 +13,8 @@ namespace Hotel.Controllers
 	[ApiController]
 	public class PersonneController : ControllerBase
 	{
-		public IRepository Repository { get; }
-		public PersonneController(IRepository repository)
+		public IRepository<Personne> Repository { get; }
+		public PersonneController(IRepository<Personne> repository)
 		{
 			Repository = repository;
 		}

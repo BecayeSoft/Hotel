@@ -13,8 +13,8 @@ namespace Hotel.Controllers
 	[ApiController]
 	public class CategoryController : ControllerBase
 	{
-		public IRepository Repository { get; }
-		public CategoryController(IRepository repository)
+		public IRepository<Categorie> Repository { get; }
+		public CategoryController(IRepository<Categorie> repository)
 		{
 			Repository = repository;
 		}

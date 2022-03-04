@@ -17,7 +17,5 @@ namespace Hotel.Repositories
 
 		void Update(T obj);
 
-
-
 	}
 }

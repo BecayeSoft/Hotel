@@ -1,3 +1,4 @@
+using Hotel.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +30,8 @@ namespace Hotel
 			services.AddControllers();
 			services.AddDbContext<AppDbContext>(op =>
 				op.UseSqlServer(Configuration.GetConnectionString("Default")));
+			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+			services.AddScoped<DbContext, AppDbContext>();
 
 			//TODO: Create the interface
 			//services.AddScoped<ITRepository, TRepository>();
