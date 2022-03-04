@@ -19,13 +19,10 @@ namespace Hotel.Controllers
 			Repository = repository;
 		}
 
-		//TODO
-		/*
 		[HttpGet]
 		public ActionResult<List<Lit>> GetAll()
 		{
-			//TODO: return Repository.Get();
+			return Repository.GetAll();
 		}
-		*/
 	}
 }
