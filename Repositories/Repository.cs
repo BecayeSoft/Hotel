@@ -30,7 +30,7 @@ namespace Hotel.Repositories
             return Context.Set<T>().ToList();
         }
 
-        public T GetById(int id)
+        public T GetById(string id)
         {
              return Context.Find<T>(id);
         }

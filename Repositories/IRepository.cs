@@ -9,7 +9,7 @@ namespace Hotel.Repositories
 	{
 		void Add(T obj);
 
-		T GetById(int id);
+		T GetById(string id);
 
 		List<T> GetAll();
 
