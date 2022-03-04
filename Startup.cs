@@ -32,9 +32,6 @@ namespace Hotel
 				op.UseSqlServer(Configuration.GetConnectionString("Default")));
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddScoped<DbContext, AppDbContext>();
-
-			//TODO: Create the interface
-			//services.AddScoped<ITRepository, TRepository>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
