@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace Hotel
 {
 	public class Startup
 	{
+		//API name
+		string apiName = "ReservationHotel";
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -32,6 +35,22 @@ namespace Hotel
 				op.UseSqlServer(Configuration.GetConnectionString("Default")));
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddScoped<DbContext, AppDbContext>();
+
+			//Swagger
+			services.AddSwaggerGen(c =>
+			{
+
+				c.SwaggerDoc(this.apiName, new OpenApiInfo
+				{
+					Version = "v1",
+					Title = "ReservationHotelAPI",
+					Contact = new OpenApiContact
+					{
+						Name = "HanKeBe Entreprise",
+						Email = "contact@hankebe.org"
+					}
+				});
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +60,13 @@ namespace Hotel
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			//Swagger - Enregistre swagger comme middleware
+			app.UseSwagger();
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/" + this.apiName + "/swagger.json", "Store API v1");
+			});
 
 			app.UseHttpsRedirection();
 
