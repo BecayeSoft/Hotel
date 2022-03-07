@@ -1,3 +1,4 @@
+using Hotel.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +18,12 @@ namespace Hotel
 {
 	public class Startup
 	{
+		public IConfiguration Configuration { get; }
 		public Startup(IConfiguration configuration)
 		{
-			Configuration = configuration;
+            Configuration = configuration;
 		}
 
-		public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -29,7 +31,22 @@ namespace Hotel
 			services.AddControllers();
 			services.AddDbContext<AppDbContext>(op =>
 				op.UseSqlServer(Configuration.GetConnectionString("Default")));
-
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("reclamations", new OpenApiInfo
+				{
+					Version = "v1",
+					Title = "Reclamations API",
+					Contact = new OpenApiContact
+					{
+						Name = "Projet Hotel",
+						Email = "hanaebennani86@gmail.com"
+					}
+				}
+					);
+			}
+                );
+			services.AddScoped<IRepository, Repository>();
 			//TODO: Create the interface
 			//services.AddScoped<ITRepository, TRepository>();
 		}
@@ -39,15 +56,15 @@ namespace Hotel
 		{
 			if (env.IsDevelopment())
 			{
-				app.UseDeveloperExceptionPage();
+				app.UseSwagger();
+				app.UseSwaggerUI(c =>
+				{
+					c.SwaggerEndpoint("/Swagger/reclamations/swagger.json", "Reclamations API v1");
+				});
 			}
-
 			app.UseHttpsRedirection();
-
 			app.UseRouting();
-
 			app.UseAuthorization();
-
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
