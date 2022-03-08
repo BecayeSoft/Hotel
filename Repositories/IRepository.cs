@@ -7,15 +7,15 @@ namespace Hotel.Repositories
 {
 	public interface IRepository<T>
 	{
-		void Add(T obj);
+		Task Add(T obj);
 
-		T GetById(string id);
+		Task<T> GetById(string id);
 
-		List<T> GetAll();
+		Task<IEnumerable<T>> GetAll();
 
-		void Delete(T obj);
+		Task Delete(T obj);
 
-		void Update(T obj);
+		Task Update(T obj);
 
 	}
 }
