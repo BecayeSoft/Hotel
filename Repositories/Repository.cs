@@ -16,29 +16,78 @@ namespace Hotel.Repositories
 
         public AppDbContext Context { get; }
 
-        public void Add(T obj)
+        public async Task Add(T obj)
         {
-            Context.Add<T>(obj);
+            try
+            {
+                await Context.Set<T>().AddAsync(obj);
+                await Context.SaveChangesAsync();
+            }
+            catch(Exception)
+            {
+
+            }
+            //Context.Add<T>(obj);
         }
 
-        public void Delete(T obj)
+        public async Task Delete(T obj)
         {
-            Context.Remove<T>(obj);
+            try
+            {
+                Context.Set<T>().Remove(obj);
+                await Context.SaveChangesAsync();
+            }
+            catch(Exception)
+            {
+
+            }
+            //Context.Remove<T>(obj);
         }
 
-        public List<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return Context.Set<T>().ToList();
+            try
+            {
+                return await Context.Set<T>().ToListAsync();
+            }
+            catch(Exception)
+            {
+                return new List<T>();
+            }
+            //return Context.Set<T>().ToList();
         }
 
-        public T GetById(string id)
+        public async Task<T> GetById(string id)
         {
-             return Context.Find<T>(id);
+            try
+            {
+                return await Context.Set<T>().FindAsync(id);
+            }
+            catch
+            {
+                return Activator.CreateInstance<T>();
+
+                //return (T)Activator.CreateInstance(typeof(T));
+            }
+             //return Context.Find<T>(id);
         }
 
-        public void Update(T obj)
+
+        public async Task Update(T obj)
         {
-            Context.Update<T>(obj);
+            try
+            {
+                Context.Set<T>().Update(obj);
+                await Context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            
+
+            //Context.Update<T>(obj);
         }
     }
 }
