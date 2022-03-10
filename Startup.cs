@@ -19,13 +19,13 @@ namespace Hotel
 	public class Startup
 	{
 		//API name
-		string apiName = "ReservationHotel";
+		readonly string apiName = "ReservationHotel";
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
 		}
 
-		
+		public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -58,11 +58,7 @@ namespace Hotel
 		{
 			if (env.IsDevelopment())
 			{
-				app.UseSwagger();
-				app.UseSwaggerUI(c =>
-				{
-					c.SwaggerEndpoint("/Swagger/reclamations/swagger.json", "Reclamations API v1");
-				});
+				app.UseDeveloperExceptionPage();
 			}
 
 			//Swagger - Enregistre swagger comme middleware
@@ -73,8 +69,11 @@ namespace Hotel
 			});
 
 			app.UseHttpsRedirection();
+
 			app.UseRouting();
+
 			app.UseAuthorization();
+
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
