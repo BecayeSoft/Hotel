@@ -19,7 +19,7 @@ namespace Hotel
 	public class Startup
 	{
 		//API name
-		string apiName = "ReservationHotel";
+		readonly string apiName = "ReservationHotel";
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;

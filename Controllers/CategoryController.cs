@@ -17,42 +17,60 @@ namespace Hotel.Controllers
 		public CategoryController(IRepository<Categorie> repository)
 		{
 			Repository = repository;
-		}
+        }
 
-		// GET: api/<CategoryController>
-		[HttpGet]
-		public ActionResult<List<Categorie>> GetAll()
-		{
-			return Repository.GetAll();
-		}
+        // GET: api/class/
+        [HttpGet]
+        public ActionResult Get()
+        {
+            return Ok(Repository.GetAll().Result);
+        }
 
-		
-		// GET api/<CategoryController>/5
-		[HttpGet("{id}")]
-		public ActionResult<Categorie> GetById(string id)
-		{
-			return Repository.GetById(id);
-		}
+        // GET: api/class/1
+        [HttpGet("{id}")]
+        public ActionResult Get(string id)
+        {
+            if (id.Equals(""))
+                return BadRequest("L'Id reçu en paramètre est invalid");
+            else
+            {
+                Categorie obj = Repository.GetById(id).Result;
+                if (obj == null)
+                    return NotFound("Aucun Objet trouvé avec cet Id");
+                else
+                    return Ok(obj);
+            }
+        }
 
-		// POST api/<CategoryController>
-		[HttpPost]
-		public void Add(Categorie categorie)
-		{
-			Repository.Add(categorie);
-		}
+        // POST: api/class/{obj}
+        [HttpPost]
+        public ActionResult Add(Categorie obj)
+        {
+            try
+			{
+                Repository.Add(obj);
+			}
+            catch(Exception e)
+			{
+            }
 
-		// PUT api/<CategoryController>/5
-		[HttpPut("{id}")]
-		public void Update(Categorie categorie)
-		{
-			Repository.Update(categorie);
-		}
+            return Ok(obj);
+        }
 
-		// DELETE api/<CategoryController>/5
-		[HttpDelete("{id}")]
-		public void Delete(Categorie categorie)
-		{
-			Repository.Delete(categorie);
-		}
-	}
+        // PUT: api/class/{obj}
+        [HttpPut]
+        public ActionResult Put(Categorie obj)
+        {
+            Repository.Update(obj);
+            return Ok(obj);
+        }
+
+        // DELETE: api/class/{obj}
+        [HttpDelete]
+        public ActionResult Delete(Categorie obj)
+        {
+            Repository.Delete(obj);
+            return Ok(obj);
+        }
+    }
 }

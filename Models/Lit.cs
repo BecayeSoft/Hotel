@@ -9,6 +9,7 @@ namespace Hotel.Models
 	public class Lit
 	{
 		[Key]
+		public string IdLit { get; set; }
 		public int Nombre { get; set; }
 		public int Nb_places { get; set; }
 	}

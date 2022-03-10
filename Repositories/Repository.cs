@@ -20,7 +20,7 @@ namespace Hotel.Repositories
         {
             try
             {
-                await Context.Set<T>().AddAsync(obj);
+                Context.Set<T>().Add(obj);
                 await Context.SaveChangesAsync();
             }
             catch(Exception)
