@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T: class
     {
 
         public Repository(AppDbContext appDbContext)
