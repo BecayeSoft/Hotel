@@ -1,4 +1,4 @@
-﻿using Hotel.Models;
+﻿using Hotel.Entities;
 using Hotel.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +14,13 @@ namespace Hotel.Controllers
     public class ChambreController : ControllerBase
     {
         public IRepository<Chambre> Repository { get; }
-        public ChambreController(IRepository<Chambre> repository)
+		public IChambreCategory ChambreCategoryRepository { get; }
+
+		public ChambreController(IRepository<Chambre> repository, IChambreCategory chambreCategory)
         {
             Repository = repository;
-        }
+			ChambreCategoryRepository = chambreCategory;
+		}
         // GET: api/class/
         [HttpGet]
         public ActionResult Get()
@@ -70,6 +73,23 @@ namespace Hotel.Controllers
         {
             Repository.Delete(obj);
             return Ok(obj);
+        }
+
+        // GET: api/
+        [HttpGet("byCategorie/{id}", Name = "GetByCategory")]
+        public ActionResult GetByCategory(Guid id)
+        {
+            if (id.Equals(""))
+                return BadRequest("L'Id reçu en paramètre est invalid");
+            else
+            {
+                IEnumerable<Chambre> chambres = ChambreCategoryRepository.GetChambresByCategory(id).Result;
+
+                if (chambres == null)
+                    return NotFound("Aucun Objet trouvé avec cet Id");
+                else
+                    return Ok(chambres); 
+            }
         }
     }
 }

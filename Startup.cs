@@ -34,6 +34,7 @@ namespace Hotel
 			services.AddDbContext<AppDbContext>(op =>
 				op.UseSqlServer(Configuration.GetConnectionString("Default")));
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+			services.AddScoped<IChambreCategory, ChambreCategory>();
 			services.AddScoped<DbContext, AppDbContext>();
 
 			//Swagger

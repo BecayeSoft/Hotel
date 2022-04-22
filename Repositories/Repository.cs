@@ -27,7 +27,6 @@ namespace Hotel.Repositories
             {
 
             }
-            //Context.Add<T>(obj);
         }
 
         public async Task Delete(T obj)
@@ -54,7 +53,6 @@ namespace Hotel.Repositories
             {
                 return new List<T>();
             }
-            //return Context.Set<T>().ToList();
         }
 
         public async Task<T> GetById(string id)
@@ -66,10 +64,7 @@ namespace Hotel.Repositories
             catch
             {
                 return Activator.CreateInstance<T>();
-
-                //return (T)Activator.CreateInstance(typeof(T));
             }
-             //return Context.Find<T>(id);
         }
 
 
@@ -82,12 +77,9 @@ namespace Hotel.Repositories
             }
             catch (Exception)
             {
-
                 
             }
-            
 
-            //Context.Update<T>(obj);
         }
     }
 }

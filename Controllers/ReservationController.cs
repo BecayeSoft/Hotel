@@ -1,4 +1,4 @@
-﻿using Hotel.Models;
+﻿using Hotel.Entities;
 using Hotel.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
