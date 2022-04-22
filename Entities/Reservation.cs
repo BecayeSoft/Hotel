@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hotel.Models
+namespace Hotel.Entities
 {
-	public class Reservation
+	public class Reservation : BaseEntity
 	{
-		[Key]
-		public string Id { get; set; }
-		public string IdUser { get; set; }
+		[ForeignKey("User")]
+		public Guid IdUser { get; set; }
 		public Chambre[] Chambres { get; set; }
 		public DateTime DateReservation { get; set; }
 		public DateTime DateEntree { get; set; }

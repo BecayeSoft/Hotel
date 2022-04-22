@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hotel.Models
+namespace Hotel.Entities
 {
-	public class Chambre
+	public class Chambre : BaseEntity
 	{
-		[Key]
-		public string Id { get; set; }
+		[ForeignKey("Categorie")]
+		public Guid IdCategorie { get; set; }
+		public int Numero { get; set; }
 		public int NumEtage { get; set; }
-		public string NumBatiment { get; set; }
+		public int NumBatiment { get; set; }
 		public int NbLits{ get; set; }
-		public Categorie Categorie { get; set; }
 		public Boolean IsAvailable { get; set; }
 		public Boolean HasBalcon { get; set; }
 		public Boolean HasVue_sur_mer { get; set; }
