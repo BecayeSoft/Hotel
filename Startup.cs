@@ -61,7 +61,7 @@ namespace Hotel
 				app.UseDeveloperExceptionPage();
 			}
 
-			//Swagger - Enregistre swagger comme middleware
+			//Swagger - Register swagger as a middleware
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{

@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace Hotel.Models
 {
-	public class Personne
+	public class User
 	{
 		[Key]
-		public string IdPersonne { get; set; }
+		public string IdUser { get; set; }
 
-		public string IdFirebasePersonne { get; set; }
+		public string IdFirebaseUser { get; set; }
+		public string username { get; set; }
+
+		public string Password { get; set; }
 
 		public string Nom { get; set; }
 		
@@ -22,8 +25,6 @@ namespace Hotel.Models
 		public string Email { get; set; }
 		
 		public string Telephone { get; set; }
-		
-		public string Mot_de_passe { get; set; }
 		
 		public int Age { get; set; }
 		

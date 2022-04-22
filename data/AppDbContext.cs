@@ -18,9 +18,7 @@ namespace Hotel
 		// Tables
 		public DbSet<Categorie> Categories { get; set; }
 		public DbSet<Chambre> Chambres { get; set; }
-		public DbSet<Lit> Lits { get; set; }
-		public DbSet<Option> Options { get; set; }
-		public DbSet<Personne> Personnes { get; set; }
+		public DbSet<User> Personnes { get; set; }
 		public DbSet<Reservation> Reservations { get; set; }
 	}
 }

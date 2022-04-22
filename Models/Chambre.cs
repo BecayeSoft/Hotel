@@ -9,11 +9,15 @@ namespace Hotel.Models
 	public class Chambre
 	{
 		[Key]
-		public string IdChambre { get; set; }
-		public int Num_etage { get; set; }
-		public string Batiment { get; set; }
-		public Option Option { get; set; }
+		public string Id { get; set; }
+		public int NumEtage { get; set; }
+		public string NumBatiment { get; set; }
+		public int NbLits{ get; set; }
 		public Categorie Categorie { get; set; }
-		public Lit Lit { get; set; }
+		public Boolean IsAvailable { get; set; }
+		public Boolean HasBalcon { get; set; }
+		public Boolean HasVue_sur_mer { get; set; }
+		public Boolean HasSalle_sejour { get; set; }
+		public Boolean HasCuisine { get; set; }
 	}
 }
