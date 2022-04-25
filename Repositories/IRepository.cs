@@ -9,7 +9,7 @@ namespace Hotel.Repositories
 	{
 		Task Add(T obj);
 
-		Task<T> GetById(string id);
+		Task<T> GetById(Guid id);
 
 		Task<IEnumerable<T>> GetAll();
 

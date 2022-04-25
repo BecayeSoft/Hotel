@@ -30,7 +30,7 @@ namespace Hotel.Controllers
 
         // GET: api/class/1
         [HttpGet("{id}")]
-        public ActionResult Get(string id)
+        public ActionResult Get(Guid id)
         {
             if (id.Equals(""))
                 return BadRequest("L'Id reçu en paramètre est invalid");
