@@ -11,7 +11,9 @@ namespace Hotel.Entities
 	{
 		[ForeignKey("User")]
 		public Guid IdUser { get; set; }
-		public Chambre[] Chambres { get; set; }
+		
+		[ForeignKey("Chambre")]
+		public Guid IdChambre { get; set; }
 		public DateTime DateReservation { get; set; }
 		public DateTime DateEntree { get; set; }
 		public DateTime DateSortie { get; set; }
