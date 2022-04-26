@@ -10,7 +10,9 @@ namespace Hotel.Entities
 	public class Chambre : BaseEntity
 	{
 		[ForeignKey("Categorie")]
-		public Guid IdCategorie { get; set; }
+		public Guid CategorieID { get; set; }
+		public virtual Categorie Categorie { get; set; }
+
 		public int Numero { get; set; }
 		public int NumEtage { get; set; }
 		public int NumBatiment { get; set; }

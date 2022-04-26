@@ -20,7 +20,7 @@ namespace Hotel.Repositories
 		{
             try
             {
-                return await Context.Chambres.Where(c => c.IdCategorie == idCategorie).ToListAsync();
+                return await Context.Chambres.Where(c => c.CategorieID == idCategorie).ToListAsync();
             }
             catch (Exception)
             {
