@@ -10,10 +10,13 @@ namespace Hotel.Entities
 	public class Reservation : BaseEntity
 	{
 		[ForeignKey("User")]
-		public Guid IdUser { get; set; }
-		
+		public Guid UserID { get; set; }
+		public virtual User User { get; set; }
+
 		[ForeignKey("Chambre")]
-		public Guid IdChambre { get; set; }
+		public Guid ChambreId { get; set; }
+		public virtual Chambre Chambre { get; set; }
+
 		public DateTime DateReservation { get; set; }
 		public DateTime DateEntree { get; set; }
 		public DateTime DateSortie { get; set; }
