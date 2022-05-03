@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Hotel.Repositories
@@ -16,6 +17,8 @@ namespace Hotel.Repositories
 		Task Delete(T obj);
 
 		Task Update(T obj);
+
+		IEnumerable<T> GetIncludes(params Expression<Func<T, Object>>[] includes);
 
 	}
 }

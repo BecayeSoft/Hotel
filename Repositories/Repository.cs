@@ -1,20 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hotel.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Hotel.Repositories
 {
-    public class Repository<T> : IRepository<T> where T: class
+    public class Repository<T> : IRepository<T> where T: BaseEntity
     {
+
+        public AppDbContext Context { get; }
+        private DbSet<T> table = null;
 
         public Repository(AppDbContext appDbContext)
         {
             Context = appDbContext;
+            table = appDbContext.Set<T>();
+            
         }
 
-        public AppDbContext Context { get; }
+        
 
         public async Task<IEnumerable<T>> GetAll()
         {
@@ -30,57 +37,53 @@ namespace Hotel.Repositories
 
         public async Task<T> GetById(Guid id)
         {
-            try
-            {
-                return await Context.Set<T>().FindAsync(id);
-            }
-            catch
-            {
-                return Activator.CreateInstance<T>();
-            }
+            
+            return await table.AsNoTracking().SingleOrDefaultAsync(e => e.Id == id);
+            
+
         }
 
         public async Task Add(T obj)
         {
-            try
-            {
-                Context.Set<T>().Add(obj);
-                await Context.SaveChangesAsync();
-            }
-            catch(Exception)
-            {
 
-            }
+            await table.AddAsync(obj);
+            await Context.SaveChangesAsync();
+
         }
 
-        public async Task Delete(T obj)
+        public Task Delete(T obj)
         {
-            try
-            {
-                Context.Set<T>().Remove(obj);
-                await Context.SaveChangesAsync();
-            }
-            catch(Exception)
-            {
+         
+            table.Remove(obj);
+            //await Context.SaveChangesAsync();
+            return Task.FromResult(Context.SaveChanges());
 
-            }
         }
 
         
 
 
-        public async Task Update(T obj)
+        public Task Update(T obj)
         {
-            try
-            {
-                Context.Set<T>().Update(obj);
-                await Context.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                
-            }
+ 
 
+            table.Update(obj);
+            //Context.SaveChanges();
+            return Task.FromResult(Context.SaveChanges());
+           
+
+
+        }
+
+        public IEnumerable<T> GetIncludes(params Expression<Func<T, object>>[] includes)
+        {
+
+            IQueryable<T> query = table.Include(includes[0]);
+            foreach (var include in includes.Skip(1))
+            {
+                query = query.Include(include);
+            }
+            return query.ToList();
         }
     }
 }

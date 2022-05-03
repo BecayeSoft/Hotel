@@ -33,9 +33,16 @@ namespace Hotel
 			services.AddControllers();
 			services.AddDbContext<AppDbContext>(op =>
 				op.UseSqlServer(Configuration.GetConnectionString("Default")));
+
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+			
 			services.AddScoped<IChambreCategory, ChambreCategory>();
+			
 			services.AddScoped<DbContext, AppDbContext>();
+			
+			//NewtonJson package 
+			services.AddControllers().AddNewtonsoftJson(option =>
+			option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 			//Swagger
 			services.AddSwaggerGen(c =>

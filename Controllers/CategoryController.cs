@@ -27,11 +27,11 @@ namespace Hotel.Controllers
         }
 
         // GET: api/class/1
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetCategorie")]
         public ActionResult Get(Guid id)
         {
             if (id.Equals(""))
-                return BadRequest("L'Id reçu en paramètre est invalid");
+                return BadRequest("L'Id reçu en paramètre est invalide");
             else
             {
                 Categorie obj = Repository.GetById(id).Result;
@@ -46,31 +46,54 @@ namespace Hotel.Controllers
         [HttpPost]
         public ActionResult Add(Categorie obj)
         {
-            try
-			{
-                Repository.Add(obj);
+            if (obj == null)
+            {
+                return BadRequest();
+                
 			}
-            catch(Exception e)
-			{
-            }
+            Repository.Add(obj);
 
-            return Ok(obj);
+            return CreatedAtRoute("GetCategorie", new { id = obj.Id }, obj);
         }
 
         // PUT: api/class/{obj}
-        [HttpPut]
-        public ActionResult Put(Categorie obj)
+        [HttpPut("{id}")]
+        public ActionResult Put(Guid id, [FromBody] Categorie obj)
         {
+            //Repository.Update(obj);
+            //return Ok(obj);
+
+            if (obj == null || obj.Id != id)
+            {
+                return BadRequest();
+            }
+
+            var temp = Repository.GetById(id).Result;
+            if (temp == null)
+            {
+                return NotFound();
+            }
+
             Repository.Update(obj);
+            //return Ok(Repository.Update(obj).IsCompletedSuccessfully);
             return Ok(obj);
+            //return new NoContentResult();
         }
 
         // DELETE: api/class/{obj}
-        [HttpDelete]
-        public ActionResult Delete(Categorie obj)
+        [HttpDelete("{id}")]
+        public ActionResult Delete(Guid id)
         {
+            //Repository.Delete(obj);
+            //return Ok(obj);
+            var obj = Repository.GetById(id).Result;
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
             Repository.Delete(obj);
-            return Ok(obj);
+            return new NoContentResult();
         }
     }
 }
