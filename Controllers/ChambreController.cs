@@ -109,7 +109,7 @@ namespace Hotel.Controllers
             {
                 IEnumerable<Chambre> chambres = ChambreCategoryRepository.GetChambresByCategory(id).Result;
 
-                if (chambres == null)
+                if (chambres.Count() == 0)
                     return NotFound("Aucun Objet trouvé avec cet Id");
                 else
                     return Ok(chambres); 
