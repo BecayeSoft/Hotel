@@ -14,9 +14,12 @@ namespace Hotel.Controllers
 	public class ReservationController : ControllerBase
 	{
 		public IRepository<Reservation> Repository { get; }
-		public ReservationController(IRepository<Reservation> repository)
+        public IReservationRepository ReservationRepository { get; }
+
+        public ReservationController(IRepository<Reservation> repository, IReservationRepository reservationRepository)
 		{
 			Repository = repository;
+            ReservationRepository = reservationRepository;
 		}
 
         // GET: api/class/
@@ -99,5 +102,25 @@ namespace Hotel.Controllers
             Repository.Delete(obj);
             return new NoContentResult();
         }
+
+
+
+        [HttpGet("byUser/{id}", Name = "GetByUser")]
+        public ActionResult GetByUser(Guid id)
+        {
+            if (id.Equals(""))
+                return BadRequest("L'Id reçu en paramètre est invalid");
+            else
+            {
+                IEnumerable<Reservation> reservations = ReservationRepository.GetReservationByUserIncludes(id, d => d.Chambre, e => e.User, f => f.Chambre.Categorie);
+
+                if (reservations.Count() == 0)
+                    return NotFound("Aucun Objet trouvé avec cet Id");
+                else
+                    return Ok(reservations);
+            }
+
+        }
+
     }
 }

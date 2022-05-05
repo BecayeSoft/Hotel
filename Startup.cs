@@ -37,6 +37,8 @@ namespace Hotel
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			
 			services.AddScoped<IChambreCategory, ChambreCategory>();
+
+			services.AddScoped<IReservationRepository, ReservationRepository>();
 			
 			services.AddScoped<DbContext, AppDbContext>();
 			
