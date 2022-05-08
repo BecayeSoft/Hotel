@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Hotel.Repositories
@@ -16,16 +17,14 @@ namespace Hotel.Repositories
 
 		public AppDbContext Context { get; }
 
-		public async Task<IEnumerable<Chambre>> GetChambresByCategory(Guid idCategorie)
-		{
-            try
+        public IEnumerable<Chambre> GetChambresByCategoryIncludes(Guid idCategorie, params Expression<Func<Chambre, object>>[] includes)
+        {
+            IQueryable<Chambre> query = Context.Chambres.Include(includes[0]).Where(c => c.CategorieID == idCategorie);
+            foreach (var include in includes.Skip(1))
             {
-                return await Context.Chambres.Where(c => c.CategorieID == idCategorie).ToListAsync();
+                query = query.Include(include);
             }
-            catch (Exception)
-            {
-                return new List<Chambre>();
-            }
+            return query.ToList();
         }
     }
 }

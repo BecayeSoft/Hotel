@@ -107,7 +107,7 @@ namespace Hotel.Controllers
                 return BadRequest("L'Id reçu en paramètre est invalid");
             else
             {
-                IEnumerable<Chambre> chambres = ChambreCategoryRepository.GetChambresByCategory(id).Result;
+                IEnumerable<Chambre> chambres = ChambreCategoryRepository.GetChambresByCategoryIncludes(id, c => c.Categorie);
 
                 if (chambres.Count() == 0)
                     return NotFound("Aucun Objet trouvé avec cet Id");
