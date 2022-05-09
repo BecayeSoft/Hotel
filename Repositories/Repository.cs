@@ -43,11 +43,14 @@ namespace Hotel.Repositories
 
         }
 
-        public async Task Add(T obj)
+        public Task Add(T obj)
         {
 
-            await table.AddAsync(obj);
-            await Context.SaveChangesAsync();
+            //await table.AddAsync(obj);
+            //await Context.SaveChangesAsync();
+
+            table.Add(obj);
+            return Task.FromResult(Context.SaveChanges());
 
         }
 
@@ -65,7 +68,7 @@ namespace Hotel.Repositories
 
         public Task Update(T obj)
         {
- 
+
 
             table.Update(obj);
             //Context.SaveChanges();
